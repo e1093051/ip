@@ -22,26 +22,26 @@ public class Carolyn {
             if (s.equals("list")) {
                 //reference to https://www.geeksforgeeks.org/arraylist-foreach-method-in-java/
                 //reference to https://stackoverflow.com/questions/20961617/get-the-current-index-of-a-for-each-loop-iterating-an-arraylist
-                list.forEach(item -> System.out.println(indent + (list.indexOf(item) + 1) + ".[" + item.getStatusIcon() + "]" + item.getDescription()));
+                list.forEach(item -> System.out.println(indent + (list.indexOf(item) + 1) + "." + item.toString()));
             }
             //https://www.tutorialspoint.com/java/java_string_matches.htm
             else if (s.matches("mark \\d")) {
                 String[] array = s.split(" ");
                 //https://www.geeksforgeeks.org/how-to-convert-string-to-int-in-java/
                 int index = Integer.valueOf(array[1]);
-                Task t = list.get(index);
+                Task t = list.get(index - 1);
                 t.mark(true);
                 System.out.println(indent + " Nice! I've marked this task as done:");
-                System.out.println(indent + "   [X] " + t.getDescription());
+                System.out.println(indent + t.toString());
             }
             else if (s.matches("unmark \\d")) {
                 String[] array = s.split(" ");
                 //https://www.geeksforgeeks.org/how-to-convert-string-to-int-in-java/
                 int index = Integer.valueOf(array[1]);
-                Task t = list.get(index);
+                Task t = list.get(index - 1);
                 t.mark(false);
                 System.out.println(indent + " OK, I've marked this task as not done yet:");
-                System.out.println(indent + "   [ ] " + t.getDescription());
+                System.out.println(indent + t.toString());
             }
             else {
                 list.add(new Task(s));
