@@ -4,10 +4,13 @@ import java.util.ArrayList;
 
 public class Carolyn {
 
-    public static Task createTask(String s) {
+    public static Task createTask(String s) throws CarolynException{
         String[] command = s.split(" ");
         if (command[0].equals("todo")) {
             int firstSpace = s.indexOf(" ");
+            if (firstSpace == -1) {
+                throw new CarolynException("no description for todo");
+            }
             return (new ToDo(s.substring(firstSpace + 1)));
         }
         else if (command[0].equals(("deadline"))) {
@@ -16,8 +19,7 @@ public class Carolyn {
             int indexOfBy = s.indexOf("by");
             return (new Deadline(s.substring(firstSpace + 1, firstSlash - 1), s.substring(indexOfBy + 3)));
         }
-        //else if (command[0].equals("event")) {
-        else {
+        else if (command[0].equals("event")) {
             int firstSpace = s.indexOf(" ");
             int firstSlash = s.indexOf("/");
             int secondSlash = s.substring(firstSlash + 1).indexOf("/") + firstSlash + 1;
@@ -27,6 +29,9 @@ public class Carolyn {
             String from = s.substring(indexOfFrom + 6, secondSlash - 1);
             String to = s.substring(indexOfTo + 4);
             return (new Event(description, from, to));
+        }
+        else {
+            throw new CarolynException("invalid task type");
         }
     }
 
@@ -71,11 +76,16 @@ public class Carolyn {
                 System.out.println(indent + t.toString());
             }
             else {
-                Task t = createTask(s);
-                list.add(t);
-                System.out.println(indent + " Got it. I've added this task:");
-                System.out.println(indent + "   " + t.toString());
-                System.out.println(indent + " Now you have " + list.size() + " tasks in the list.");
+                try {
+                    Task t = createTask(s);
+                    list.add(t);
+                    System.out.println(indent + " Got it. I've added this task:");
+                    System.out.println(indent + "   " + t.toString());
+                    System.out.println(indent + " Now you have " + list.size() + " tasks in the list.");
+                }
+                catch (CarolynException e) {
+                    System.out.println(indent + e.getMessage());
+                }
             }
             System.out.print(line);
             s = scanner.nextLine();
