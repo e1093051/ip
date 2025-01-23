@@ -64,7 +64,7 @@ public class Carolyn {
                 Task t = list.get(index - 1);
                 t.mark(true);
                 System.out.println(indent + " Nice! I've marked this task as done:");
-                System.out.println(indent + t.toString());
+                System.out.println(indent + "   " + t.toString());
             }
             else if (s.matches("unmark \\d")) {
                 String[] array = s.split(" ");
@@ -73,7 +73,17 @@ public class Carolyn {
                 Task t = list.get(index - 1);
                 t.mark(false);
                 System.out.println(indent + " OK, I've marked this task as not done yet:");
-                System.out.println(indent + t.toString());
+                System.out.println(indent + "   " + t.toString());
+            }
+            else if (s.matches("delete \\d")) {
+                String[] array = s.split(" ");
+                //https://www.geeksforgeeks.org/how-to-convert-string-to-int-in-java/
+                int index = Integer.valueOf(array[1]);
+                Task t = list.get(index - 1);
+                list.remove(index - 1);
+                System.out.println(indent + " Noted. I've removed this task:");
+                System.out.println(indent + "   " + t.toString());
+                System.out.println(indent + " Now you have " + list.size() + " tasks in the list.");
             }
             else {
                 try {
