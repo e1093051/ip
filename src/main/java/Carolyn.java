@@ -38,7 +38,7 @@ public class Carolyn {
                 indent +" What can I do for you?\n" +
                 "    ____________________________________________________________\n";
         String Bye = "    ____________________________________________________________\n" +
-                " Bye. Hope to see you again soon!\n" +
+                indent + " Bye. Hope to see you again soon!\n" +
                 "    ____________________________________________________________\n";
         String line = "    ____________________________________________________________\n";
         System.out.print(Greeting);
