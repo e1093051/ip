@@ -3,6 +3,33 @@ import java.util.ArrayList;
 
 
 public class Carolyn {
+
+    public static Task createTask(String s) {
+        String[] command = s.split(" ");
+        if (command[0].equals("todo")) {
+            int firstSpace = s.indexOf(" ");
+            return (new ToDo(s.substring(firstSpace + 1)));
+        }
+        else if (command[0].equals(("deadline"))) {
+            int firstSpace = s.indexOf(" ");
+            int firstSlash = s.indexOf("/");
+            int indexOfBy = s.indexOf("by");
+            return (new Deadline(s.substring(firstSpace + 1, firstSlash - 1), s.substring(indexOfBy + 3)));
+        }
+        //else if (command[0].equals("event")) {
+        else {
+            int firstSpace = s.indexOf(" ");
+            int firstSlash = s.indexOf("/");
+            int secondSlash = s.substring(firstSlash + 1).indexOf("/") + firstSlash + 1;
+            int indexOfFrom = s.indexOf("/from ");
+            int indexOfTo = s.indexOf("/to ");
+            String description = s.substring(firstSpace + 1, firstSlash - 1);
+            String from = s.substring(indexOfFrom + 6, secondSlash - 1);
+            String to = s.substring(indexOfTo + 4);
+            return (new Event(description, from, to));
+        }
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String indent = "    ";
@@ -44,8 +71,11 @@ public class Carolyn {
                 System.out.println(indent + t.toString());
             }
             else {
-                list.add(new Task(s));
-                System.out.println(indent + "added: " + s);
+                Task t = createTask(s);
+                list.add(t);
+                System.out.println(indent + " Got it. I've added this task:");
+                System.out.println(indent + "   " + t.toString());
+                System.out.println(indent + " Now you have " + list.size() + " tasks in the list.");
             }
             System.out.print(line);
             s = scanner.nextLine();
