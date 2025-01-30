@@ -7,7 +7,11 @@ import java.util.ArrayList;
 public class Carolyn {
 
     public static void main(String[] args) {
+
         Parser parser = new Parser();
+        Storage storage = new Storage();
+        TaskList list = storage.load();
+
         Scanner scanner = new Scanner(System.in);
         String indent = "    ";
         String Greeting = "    ____________________________________________________________\n" +
@@ -19,7 +23,6 @@ public class Carolyn {
                 "    ____________________________________________________________\n";
         String line = "    ____________________________________________________________\n";
         System.out.print(Greeting);
-        ArrayList<Task> list = new ArrayList<Task>();
         try{
             while (scanner.hasNext()) {
                 String s = scanner.nextLine();
@@ -45,10 +48,8 @@ public class Carolyn {
                     System.out.println(indent + "   " + t.toString());
                 } else if (type.equals("delete")) {
                     Task t = list.get((int)content[0]);
-                    list.remove((int)content[0]);
+                    list.delete((int)content[0]);
                     System.out.println(indent + " Noted. I've removed this task:");
-                    System.out.println(indent + "   " + t.toString());
-                    System.out.println(indent + " Now you have " + list.size() + " tasks in the list.");
                 }
                 else {
                     System.out.println(indent + " Got it. I've added this task:");
@@ -73,6 +74,8 @@ public class Carolyn {
             }
         } catch (CarolynException e){
             System.out.println(indent + e.getMessage());
+            storage.save(list);
+
         }
     }
 }
