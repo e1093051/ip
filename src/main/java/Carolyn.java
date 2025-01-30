@@ -34,7 +34,7 @@ public class Carolyn {
                     System.out.print(Bye);
                 }
                 else if (type.equals("list")) {
-                    list.forEach(item -> System.out.println(indent + (list.indexOf(item) + 1) + "." + item.toString()));
+                    System.out.print(list.toString());
                 }
                 else if (type.equals("mark")) {
                     Task t = list.get((int)content[0]);
@@ -70,11 +70,11 @@ public class Carolyn {
                     }
                     System.out.println(indent + " Now you have " + list.size() + " tasks in the list.");
                 }
+                storage.save(list);
                 System.out.print(line);
             }
         } catch (CarolynException e){
             System.out.println(indent + e.getMessage());
-            storage.save(list);
 
         }
     }

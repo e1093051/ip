@@ -33,7 +33,7 @@ public class TaskList implements Serializable{
         String s = "";
         for (int i = 0; i < list.size(); i ++) {
             Task item = list.get(i);
-            String line = indent + (i + 1) + "." + item.toString();
+            String line = indent + (i + 1) + "." + item.toString() + "\n";
             s += line;
         }
         return s;
