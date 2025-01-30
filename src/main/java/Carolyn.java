@@ -36,6 +36,8 @@ public class Carolyn {
     }
 
     public static void main(String[] args) {
+        Storage storage = new Storage();
+        TaskList list = storage.load();
         Scanner scanner = new Scanner(System.in);
         String indent = "    ";
         String Greeting = "    ____________________________________________________________\n" +
@@ -47,14 +49,13 @@ public class Carolyn {
                 "    ____________________________________________________________\n";
         String line = "    ____________________________________________________________\n";
         System.out.print(Greeting);
-        ArrayList<Task> list = new ArrayList<Task>();
         String s = scanner.nextLine();
         while (!s.equals("bye")) {
             System.out.print(line);
             if (s.equals("list")) {
                 //reference to https://www.geeksforgeeks.org/arraylist-foreach-method-in-java/
                 //reference to https://stackoverflow.com/questions/20961617/get-the-current-index-of-a-for-each-loop-iterating-an-arraylist
-                list.forEach(item -> System.out.println(indent + (list.indexOf(item) + 1) + "." + item.toString()));
+                System.out.print(list.toString() + "\n");
             }
             //https://www.tutorialspoint.com/java/java_string_matches.htm
             else if (s.matches("mark \\d")) {
@@ -80,7 +81,7 @@ public class Carolyn {
                 //https://www.geeksforgeeks.org/how-to-convert-string-to-int-in-java/
                 int index = Integer.valueOf(array[1]);
                 Task t = list.get(index - 1);
-                list.remove(index - 1);
+                list.delete(index - 1);
                 System.out.println(indent + " Noted. I've removed this task:");
                 System.out.println(indent + "   " + t.toString());
                 System.out.println(indent + " Now you have " + list.size() + " tasks in the list.");
@@ -98,6 +99,7 @@ public class Carolyn {
                 }
             }
             System.out.print(line);
+            storage.save(list);
             s = scanner.nextLine();
         }
         System.out.print(Bye);
