@@ -1,41 +1,13 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 
 public class Carolyn {
 
-    public static Task createTask(String s) throws CarolynException{
-        String[] command = s.split(" ");
-        if (command[0].equals("todo")) {
-            int firstSpace = s.indexOf(" ");
-            if (firstSpace == -1) {
-                throw new CarolynException("no description for todo");
-            }
-            return (new ToDo(s.substring(firstSpace + 1)));
-        }
-        else if (command[0].equals(("deadline"))) {
-            int firstSpace = s.indexOf(" ");
-            int firstSlash = s.indexOf("/");
-            int indexOfBy = s.indexOf("by");
-            return (new Deadline(s.substring(firstSpace + 1, firstSlash - 1), s.substring(indexOfBy + 3)));
-        }
-        else if (command[0].equals("event")) {
-            int firstSpace = s.indexOf(" ");
-            int firstSlash = s.indexOf("/");
-            int secondSlash = s.substring(firstSlash + 1).indexOf("/") + firstSlash + 1;
-            int indexOfFrom = s.indexOf("/from ");
-            int indexOfTo = s.indexOf("/to ");
-            String description = s.substring(firstSpace + 1, firstSlash - 1);
-            String from = s.substring(indexOfFrom + 6, secondSlash - 1);
-            String to = s.substring(indexOfTo + 4);
-            return (new Event(description, from, to));
-        }
-        else {
-            throw new CarolynException("invalid task type");
-        }
-    }
-
     public static void main(String[] args) {
+        Parser parser = new Parser();
         Scanner scanner = new Scanner(System.in);
         String indent = "    ";
         String Greeting = "    ____________________________________________________________\n" +
@@ -48,58 +20,59 @@ public class Carolyn {
         String line = "    ____________________________________________________________\n";
         System.out.print(Greeting);
         ArrayList<Task> list = new ArrayList<Task>();
-        String s = scanner.nextLine();
-        while (!s.equals("bye")) {
-            System.out.print(line);
-            if (s.equals("list")) {
-                //reference to https://www.geeksforgeeks.org/arraylist-foreach-method-in-java/
-                //reference to https://stackoverflow.com/questions/20961617/get-the-current-index-of-a-for-each-loop-iterating-an-arraylist
-                list.forEach(item -> System.out.println(indent + (list.indexOf(item) + 1) + "." + item.toString()));
-            }
-            //https://www.tutorialspoint.com/java/java_string_matches.htm
-            else if (s.matches("mark \\d")) {
-                String[] array = s.split(" ");
-                //https://www.geeksforgeeks.org/how-to-convert-string-to-int-in-java/
-                int index = Integer.valueOf(array[1]);
-                Task t = list.get(index - 1);
-                t.mark(true);
-                System.out.println(indent + " Nice! I've marked this task as done:");
-                System.out.println(indent + "   " + t.toString());
-            }
-            else if (s.matches("unmark \\d")) {
-                String[] array = s.split(" ");
-                //https://www.geeksforgeeks.org/how-to-convert-string-to-int-in-java/
-                int index = Integer.valueOf(array[1]);
-                Task t = list.get(index - 1);
-                t.mark(false);
-                System.out.println(indent + " OK, I've marked this task as not done yet:");
-                System.out.println(indent + "   " + t.toString());
-            }
-            else if (s.matches("delete \\d")) {
-                String[] array = s.split(" ");
-                //https://www.geeksforgeeks.org/how-to-convert-string-to-int-in-java/
-                int index = Integer.valueOf(array[1]);
-                Task t = list.get(index - 1);
-                list.remove(index - 1);
-                System.out.println(indent + " Noted. I've removed this task:");
-                System.out.println(indent + "   " + t.toString());
-                System.out.println(indent + " Now you have " + list.size() + " tasks in the list.");
-            }
-            else {
-                try {
-                    Task t = createTask(s);
-                    list.add(t);
-                    System.out.println(indent + " Got it. I've added this task:");
+        try{
+            while (scanner.hasNext()) {
+                String s = scanner.nextLine();
+                System.out.print(line);
+                Command c = parser.parse(s);
+                String type = c.getType();
+                Object[] content = c.getArgs();
+                if (type.equals("bye")) {
+                    System.out.print(Bye);
+                }
+                else if (type.equals("list")) {
+                    list.forEach(item -> System.out.println(indent + (list.indexOf(item) + 1) + "." + item.toString()));
+                }
+                else if (type.equals("mark")) {
+                    Task t = list.get((int)content[0]);
+                    t.mark(true);
+                    System.out.println(indent + " Nice! I've marked this task as done:");
+                    System.out.println(indent + "   " + t.toString());
+                } else if (type.equals("unmark")) {
+                    Task t = list.get((int)content[0]);
+                    t.mark(false);
+                    System.out.println(indent + " OK, I've marked this task as not done yet:");
+                    System.out.println(indent + "   " + t.toString());
+                } else if (type.equals("delete")) {
+                    Task t = list.get((int)content[0]);
+                    list.remove((int)content[0]);
+                    System.out.println(indent + " Noted. I've removed this task:");
                     System.out.println(indent + "   " + t.toString());
                     System.out.println(indent + " Now you have " + list.size() + " tasks in the list.");
                 }
-                catch (CarolynException e) {
-                    System.out.println(indent + e.getMessage());
+                else {
+                    System.out.println(indent + " Got it. I've added this task:");
+                    if (type.equals("todo")) {
+                        Task t = new ToDo((String)content[0]);
+                        list.add(t);
+                        System.out.println(indent + "   " + t.toString());
+                    }
+                    else if (type.equals("deadline")) {
+                        Task t = new Deadline((String)content[0], (LocalDate) content[1]);
+                        list.add(t);
+                        System.out.println(indent + "   " + t.toString());
+                    }
+                    else {
+                        Task t = new Event((String)content[0], (LocalDateTime) content[1], (LocalDateTime) content[2]);
+                        list.add(t);
+                        System.out.println(indent + "   " + t.toString());
+                    }
+                    System.out.println(indent + " Now you have " + list.size() + " tasks in the list.");
                 }
+                System.out.print(line);
             }
-            System.out.print(line);
-            s = scanner.nextLine();
+        } catch (CarolynException e){
+            System.out.println(indent + e.getMessage());
         }
-        System.out.print(Bye);
     }
 }
