@@ -1,6 +1,8 @@
 package carolyn;
+
 import java.io.Serializable;
-public class Task implements Serializable{
+
+public class Task implements Serializable {
     protected String description;
     protected boolean isDone;
 

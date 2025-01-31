@@ -1,19 +1,22 @@
 package carolyn;
+
 import java.util.Scanner;
+
 public class Ui {
     private Scanner scanner;
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
-    String indent = "    ";
+  
+    String INDENT = "    ";
 
     /**
      * Displays the goodbye message to the user.
      */
     public void sayGoodBye() {
-        String bye = "    ____________________________________________________________\n" +
-                indent + " Bye. Hope to see you again soon!\n" +
-                "    ____________________________________________________________\n";
+        String bye = "    ____________________________________________________________\n"
+                + INDENT + " Bye. Hope to see you again soon!\n"
+                + "    ____________________________________________________________\n";
         System.out.print(bye);
     }
 
@@ -21,10 +24,10 @@ public class Ui {
      * Displays the greeting message to the user upon starting the application.
      */
     public void greeting() {
-        String greeting = "    ____________________________________________________________\n" +
-                indent + " Hello! I'm Carolyn\n" +
-                indent +" What can I do for you?\n" +
-                "    ____________________________________________________________\n";
+        String greeting = "    ____________________________________________________________\n"
+                + INDENT + " Hello! I'm Carolyn\n"
+                + INDENT +" What can I do for you?\n"
+                + "    ____________________________________________________________\n";
         System.out.print(greeting);
     }
 
@@ -52,8 +55,8 @@ public class Ui {
      * @param t The {@link Task} that has been marked as done.
      */
     public void printForMark(Task t) {
-        System.out.println(indent + " Nice! I've marked this task as done:");
-        System.out.println(indent + "   " + t.toString());
+        System.out.println(INDENT + " Nice! I've marked this task as done:");
+        System.out.println(INDENT + "   " + t.toString());
     }
 
     /**
@@ -62,8 +65,8 @@ public class Ui {
      * @param t The {@link Task} that has been unmarked.
      */
     public void printForUnmark(Task t) {
-        System.out.println(indent + " OK, I've marked this task as not done yet:");
-        System.out.println(indent + "   " + t.toString());
+        System.out.println(INDENT + " OK, I've marked this task as not done yet:");
+        System.out.println(INDENT + "   " + t.toString());
     }
 
     /**
@@ -77,9 +80,9 @@ public class Ui {
      * @param list  The {@link TaskList} from which the task was deleted.
      */
     public void printForDelete(Task t, TaskList list) {
-        System.out.println(indent + " Noted. I've removed this task:");
-        System.out.println(indent + "   " + t.toString());
-        System.out.println(indent + " Now you have " + list.size() + " tasks in the list.");
+        System.out.println(INDENT + " Noted. I've removed this task:");
+        System.out.println(INDENT + "   " + t.toString());
+        System.out.println(INDENT + " Now you have " + list.size() + " tasks in the list.");
     }
 
     /**
@@ -93,9 +96,9 @@ public class Ui {
      * @param list  The {@link TaskList} to which the task was added.
      */
     public void printForAddTask(Task t, TaskList list) {
-        System.out.println(indent + " Got it. I've added this task:");
-        System.out.println(indent + "   " + t.toString());
-        System.out.println(indent + " Now you have " + list.size() + " tasks in the list.");
+        System.out.println(INDENT + " Got it. I've added this task:");
+        System.out.println(INDENT + "   " + t.toString());
+        System.out.println(INDENT + " Now you have " + list.size() + " tasks in the list.");
     }
 
     /**
@@ -104,7 +107,7 @@ public class Ui {
      * @param e The {@link Exception} containing the error message to display.
      */
     public void printException(Exception e) {
-        System.out.println(indent + e.getMessage());
+        System.out.println(INDENT + e.getMessage());
     }
 
     /**
