@@ -1,7 +1,8 @@
 package carolyn;
+
 public class Command {
-    String type;
-    Object[] args;
+    protected String type;
+    protected Object[] args;
 
     public Command(String type, Object[] args) {
         this.type = type;

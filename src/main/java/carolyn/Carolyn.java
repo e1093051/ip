@@ -1,27 +1,26 @@
 package carolyn;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Scanner;
-import java.util.ArrayList;
 
 
 public class Carolyn {
-    Parser parser;
-    Storage storage;
-    Ui ui;
-    TaskList list;
+    protected Parser parser;
+    protected Storage storage;
+    protected Ui ui;
+    protected TaskList tasks;
 
     public Carolyn() {
         this.parser = new Parser();
         this.storage = new Storage();
         this.ui = new Ui();
-        this.list = storage.load();
+        this.tasks = storage.load();
     }
 
     public void run () {
         Parser parser = new Parser();
         Storage storage = new Storage();
-        TaskList list = storage.load();
+        TaskList tasks = storage.load();
         ui.greeting();
         try{
             while (ui.hasInput()) {
@@ -33,44 +32,39 @@ public class Carolyn {
                 if (type.equals("bye")) {
                     ui.sayGoodBye();
                     break;
-                }
-                else if (type.equals("list")) {
-                    ui.printTaskList(list);
-                }
-                else if (type.equals("mark")) {
-                    Task t = list.get((int)content[0]);
+                } else if (type.equals("list")) {
+                    ui.printTaskList(tasks);
+                } else if (type.equals("mark")) {
+                    Task t = tasks.get((int)content[0]);
                     t.mark(true);
                     ui.printForMark(t);
                 } else if (type.equals("unmark")) {
-                    Task t = list.get((int)content[0]);
+                    Task t = tasks.get((int)content[0]);
                     t.mark(false);
                     ui.printForUnmark(t);
                 } else if (type.equals("delete")) {
-                    Task t = list.get((int)content[0]);
-                    list.delete((int)content[0]);
-                    ui.printForDelete(t, list);
-                }
-                else {
+                    Task t = tasks.get((int)content[0]);
+                    tasks.delete((int)content[0]);
+                    ui.printForDelete(t, tasks);
+                } else {
                     if (type.equals("todo")) {
                         Task t = new ToDo((String)content[0]);
-                        list.add(t);
-                        ui.printForAddTask(t, list);
-                    }
-                    else if (type.equals("deadline")) {
+                        tasks.add(t);
+                        ui.printForAddTask(t, tasks);
+                    } else if (type.equals("deadline")) {
                         Task t = new Deadline((String)content[0], (LocalDate) content[1]);
-                        list.add(t);
-                        ui.printForAddTask(t, list);
-                    }
-                    else {
+                        tasks.add(t);
+                        ui.printForAddTask(t, tasks);
+                    } else {
                         Task t = new Event((String)content[0], (LocalDateTime) content[1], (LocalDateTime) content[2]);
-                        list.add(t);
-                        ui.printForAddTask(t, list);
+                        tasks.add(t);
+                        ui.printForAddTask(t, tasks);
                     }
                 }
-                storage.save(list);
+                storage.save(tasks);
                 ui.printLine();
             }
-        } catch (CarolynException e){
+        } catch (CarolynException e) {
             ui.printException(e);
         }
     }

@@ -9,36 +9,28 @@ import java.time.format.DateTimeFormatter;
 //https://www.geeksforgeeks.org/how-to-convert-string-to-int-in-java/
 
 public class Parser {
-    public Command parse(String s) throws CarolynException{
+    public Command parse(String s) throws CarolynException {
         Object[] args = new Object[5];
         if (s.equals("list")) {
             return new Command("list", args);
-        }
-        else if (s.equals("bye")) {
+        } else if (s.equals("bye")) {
             return new Command("bye", args);
-        }
-        else if (s.matches("mark \\d")) {
+        } else if (s.matches("mark \\d")) {
             String[] array = s.split(" ");
-            //https://www.geeksforgeeks.org/how-to-convert-string-to-int-in-java/
             int index = Integer.valueOf(array[1]);
             args[0] = index - 1;
             return new Command("mark", args);
-        }
-        else if (s.matches("unmark \\d")) {
+        } else if (s.matches("unmark \\d")) {
             String[] array = s.split(" ");
-            //https://www.geeksforgeeks.org/how-to-convert-string-to-int-in-java/
             int index = Integer.valueOf(array[1]);
             args[0] = index - 1;
             return new Command("unmark", args);
-        }
-        else if (s.matches("delete \\d")) {
+        } else if (s.matches("delete \\d")) {
             String[] array = s.split(" ");
-            //https://www.geeksforgeeks.org/how-to-convert-string-to-int-in-java/
             int index = Integer.valueOf(array[1]);
             args[0] = index - 1;
             return new Command("delete", args);
-        }
-        else {
+        } else {
             String[] command = s.split(" ");
             if (command[0].equals("todo")) {
                 int firstSpace = s.indexOf(" ");
@@ -47,9 +39,8 @@ public class Parser {
                 }
                 args[0] = s.substring(firstSpace + 1);
                 return new Command("todo", args);
-            }
-            // of this form "deadline return book /by YYYY-MM-DD"
-            else if (command[0].equals(("deadline"))) {
+            } else if (command[0].equals(("deadline"))) {
+                // of this form "deadline return book /by YYYY-MM-DD"
                 int firstSpace = s.indexOf(" ");
                 int firstSlash = s.indexOf("/");
                 int indexOfBy = s.indexOf("by");
@@ -57,9 +48,8 @@ public class Parser {
                 args[0] = s.substring(firstSpace + 1, firstSlash - 1);
                 args[1] = date;
                 return new Command("deadline", args);
-            }
-            // event project meeting /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM
-            else if (command[0].equals("event")) {
+            } else if (command[0].equals("event")) {
+                // event project meeting /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM
                 int firstSpace = s.indexOf(" ");
                 int firstSlash = s.indexOf("/");
                 int secondSlash = s.substring(firstSlash + 1).indexOf("/") + firstSlash + 1;
@@ -73,8 +63,7 @@ public class Parser {
                 args[1] = LocalDateTime.parse(from, formatter);
                 args[2] = LocalDateTime.parse(to, formatter);
                 return new Command("event", args);
-            }
-            else {
+            } else {
                 throw new CarolynException("invalid task type");
             }
         }

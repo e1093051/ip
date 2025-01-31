@@ -1,11 +1,15 @@
 package carolyn;
-import java.io.File;
-import java.io.ObjectOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
+
 import java.io.EOFException;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
+import java.io.IOException;
+
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 
 public class Storage {
@@ -19,7 +23,7 @@ public class Storage {
         String path = "data" + File.separator + "cc.txt";
         File file = new File(path);
         if (!file.exists()) {
-            try{
+            try {
                 System.out.println("to create file");
                 file.createNewFile();
                 System.out.println("file created");

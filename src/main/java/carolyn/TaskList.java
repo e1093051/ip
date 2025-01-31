@@ -1,39 +1,41 @@
 package carolyn;
-import java.util.ArrayList;
+
 import java.io.Serializable;
-public class TaskList implements Serializable{
-    ArrayList<Task> list;
+import java.util.ArrayList;
+
+public class TaskList implements Serializable {
+    protected ArrayList<Task> tasks;
 
     public TaskList() {
-        this.list = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
-    public TaskList(ArrayList<Task> list) {
-        this.list = list;
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public void add(Task t) {
-        list.add(t);
+        tasks.add(t);
     }
 
     public void delete(int i) {
-        list.remove(i);
+        tasks.remove(i);
     }
 
     public Task get(int i) {
-        return list.get(i);
+        return tasks.get(i);
     }
 
     public int size() {
-        return list.size();
+        return tasks.size();
     }
 
     @Override
     public String toString() {
         String indent = "    ";
         String s = "";
-        for (int i = 0; i < list.size(); i ++) {
-            Task item = list.get(i);
+        for (int i = 0; i < tasks.size(); i ++) {
+            Task item = tasks.get(i);
             String line = indent + (i + 1) + "." + item.toString() + "\n";
             s += line;
         }
