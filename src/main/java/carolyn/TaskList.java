@@ -52,14 +52,14 @@ public class TaskList implements Serializable {
     }
 
     public TaskList find(String s) {
-        TaskList tasks = new TaskList();
-        for (int i = 0; i < list.size(); i ++) {
-            Task t = list.get(i);
+        TaskList found = new TaskList();
+        for (int i = 0; i < tasks.size(); i ++) {
+            Task t = tasks.get(i);
             if (t.getDescription().contains(s)) {
-                tasks.add(t);
+                found.add(t);
             }
         }
-        return tasks;
+        return found;
     }
 
     @Override

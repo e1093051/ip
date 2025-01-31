@@ -57,11 +57,11 @@ public class Carolyn {
                     t.mark(false);
                     ui.printForUnmark(t);
                 } else if (type.equals("delete")) {
-                    Task t = list.get((int)content[0]);
-                    list.delete((int)content[0]);
-                    ui.printForDelete(t, list);
+                    Task t = tasks.get((int)content[0]);
+                    tasks.delete((int)content[0]);
+                    ui.printForDelete(t, tasks);
                 } else if (type.equals("find")) {
-                    TaskList found = list.find((String)content[0]);
+                    TaskList found = tasks.find((String)content[0]);
                     ui.printTaskList(found);
                 } else {
                     if (type.equals("todo")) {
