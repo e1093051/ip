@@ -33,6 +33,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the provided {@link TaskList} to the storage file.
+     *
+     * @param list the {@link TaskList} to be saved.
+     */
     public void save(TaskList list) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PATH))) {
             oos.writeObject(list);
@@ -41,6 +46,12 @@ public class Storage {
         }
     }
 
+
+    /**
+     * Loads the {@link TaskList} from the storage file.
+     *
+     * @return The loaded {@link TaskList} if deserialization is successful; otherwise, an empty {@link TaskList}.
+     */
     public TaskList load() {
         TaskList list = new TaskList();
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(PATH))) {

@@ -14,18 +14,39 @@ public class TaskList implements Serializable {
         this.tasks = tasks;
     }
 
+    /**
+     * Adds a new task to the task list.
+     *
+     * @param t The {@link Task} to be added to the list.
+     */
     public void add(Task t) {
         tasks.add(t);
     }
 
+    /**
+     * Deletes a task from the task list based on its index.
+     *
+     * @param i The zero-based index of the {@link Task} to be removed..
+     */
     public void delete(int i) {
         tasks.remove(i);
     }
 
+    /**
+     * Retrieves a task from the task list based on its index.
+     *
+     * @param i The zero-based index of the {@link Task} to retrieve.
+     * @return The {@link Task} at the specified index.
+     */
     public Task get(int i) {
         return tasks.get(i);
     }
 
+    /**
+     * Returns the number of tasks in the task list.
+     *
+     * @return The number of {@link Task} objects currently in the list.
+     */
     public int size() {
         return tasks.size();
     }

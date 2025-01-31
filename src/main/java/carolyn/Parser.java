@@ -9,6 +9,13 @@ import java.time.format.DateTimeFormatter;
 //https://www.geeksforgeeks.org/how-to-convert-string-to-int-in-java/
 
 public class Parser {
+    /**
+     * Parses a user input string and converts it into a {@link Command} object.
+     *
+     * @param s The input command string entered by the user.
+     * @return A {@link Command} object representing the parsed command and its associated arguments.
+     * @throws CarolynException If the input command is invalid, incomplete, or does not match any supported command patterns.
+     */
     public Command parse(String s) throws CarolynException {
         Object[] args = new Object[5];
         if (s.equals("list")) {
