@@ -49,6 +49,9 @@ public class Carolyn {
                     Task t = list.get((int)content[0]);
                     list.delete((int)content[0]);
                     ui.printForDelete(t, list);
+                } else if (type.equals("find")) {
+                    TaskList found = list.find((String)content[0]);
+                    ui.printTaskList(found);
                 }
                 else {
                     if (type.equals("todo")) {

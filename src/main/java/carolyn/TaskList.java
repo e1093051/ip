@@ -28,6 +28,17 @@ public class TaskList implements Serializable{
         return list.size();
     }
 
+    public TaskList find(String s) {
+        TaskList tasks = new TaskList();
+        for (int i = 0; i < list.size(); i ++) {
+            Task t = list.get(i);
+            if (t.getDescription().contains(s)) {
+                tasks.add(t);
+            }
+        }
+        return tasks;
+    }
+
     @Override
     public String toString() {
         String indent = "    ";
