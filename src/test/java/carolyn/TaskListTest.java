@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TaskListTest{
+public class TaskListTest {
     @Test
     void testDelete() {
         ArrayList<Task> list = new ArrayList();

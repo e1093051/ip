@@ -9,36 +9,35 @@ import java.time.format.DateTimeFormatter;
 //https://www.geeksforgeeks.org/how-to-convert-string-to-int-in-java/
 
 public class Parser {
-    public Command parse(String s) throws CarolynException{
+    /**
+     * Parses a user input string and converts it into a {@link Command} object.
+     *
+     * @param s The input command string entered by the user.
+     * @return A {@link Command} object representing the parsed command and its associated arguments.
+     * @throws CarolynException If the input command is invalid, incomplete, or does not match any supported command patterns.
+     */
+    public Command parse(String s) throws CarolynException {
         Object[] args = new Object[5];
         if (s.equals("list")) {
             return new Command("list", args);
-        }
-        else if (s.equals("bye")) {
+        } else if (s.equals("bye")) {
             return new Command("bye", args);
-        }
-        else if (s.matches("mark \\d")) {
+        } else if (s.matches("mark \\d")) {
             String[] array = s.split(" ");
-            //https://www.geeksforgeeks.org/how-to-convert-string-to-int-in-java/
             int index = Integer.valueOf(array[1]);
             args[0] = index - 1;
             return new Command("mark", args);
-        }
-        else if (s.matches("unmark \\d")) {
+        } else if (s.matches("unmark \\d")) {
             String[] array = s.split(" ");
-            //https://www.geeksforgeeks.org/how-to-convert-string-to-int-in-java/
             int index = Integer.valueOf(array[1]);
             args[0] = index - 1;
             return new Command("unmark", args);
-        }
-        else if (s.matches("delete \\d")) {
+        } else if (s.matches("delete \\d")) {
             String[] array = s.split(" ");
-            //https://www.geeksforgeeks.org/how-to-convert-string-to-int-in-java/
             int index = Integer.valueOf(array[1]);
             args[0] = index - 1;
             return new Command("delete", args);
-        }
-        else {
+        } else {
             String[] command = s.split(" ");
             if (command[0].equals("find")) {
                 int firstSpace = s.indexOf(" ");
