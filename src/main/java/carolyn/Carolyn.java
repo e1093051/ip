@@ -18,6 +18,20 @@ public class Carolyn {
         this.list = storage.load();
     }
 
+    /**
+     * Runs the main program loop, processing user input and executing commands.
+     * <p>
+     * This method:
+     * <ul>
+     *     <li>Initializes a {@link Parser}, {@link Storage}, and {@link TaskList}.</li>
+     *     <li>Loads previously saved tasks from storage.</li>
+     *     <li>Continuously reads user input, processes commands, and updates the task list.</li>
+     *     <li>Handles different command types: listing tasks, marking/unmarking tasks, deleting tasks, and adding new tasks.</li>
+     *     <li>Saves changes to storage after each modification.</li>
+     *     <li>Exits when the "bye" command is received.</li>
+     * </ul>
+     * </p>
+     */
     public void run () {
         Parser parser = new Parser();
         Storage storage = new Storage();

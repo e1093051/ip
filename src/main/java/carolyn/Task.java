@@ -21,6 +21,11 @@ public class Task implements Serializable{
         return ("[" + this.getStatusIcon() + "] " + this.description);
     }
 
+    /**
+     * Marks the task as done or not done.
+     *
+     * @param done {@code true} to mark the task as done, {@code false} to mark it as not done.
+     */
     public void mark(boolean done) {
         this.isDone = done;
     }
