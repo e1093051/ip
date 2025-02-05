@@ -11,66 +11,42 @@ public class Ui {
     String INDENT = "    ";
 
     /**
-     * Displays the goodbye message to the user.
-     */
-    public void sayGoodBye() {
-        String bye = "    ____________________________________________________________\n"
-                + INDENT + " Bye. Hope to see you again soon!\n"
-                + "    ____________________________________________________________\n";
-        System.out.print(bye);
-    }
-
-    /**
-     * Displays the greeting message to the user upon starting the application.
-     */
-    public void greeting() {
-        String greeting = "    ____________________________________________________________\n"
-                + INDENT + " Hello! I'm Carolyn\n"
-                + INDENT +" What can I do for you?\n"
-                + "    ____________________________________________________________\n";
-        System.out.print(greeting);
-    }
-
-    /**
-     * Checks if there is user input available.
+     * Returns the goodbye message to the user.
      *
-     * @return {@code true} if there is input available; {@code false} otherwise.
+     * @return A string containing the goodbye message.
      */
-    public boolean hasInput() {
-        return scanner.hasNext();
+    public String sayGoodBye() {
+        String bye = " Bye. Hope to see you again soon!\n";
+        return(bye);
     }
 
-    /**
-     * Reads the next line of user input from the console.
-     *
-     * @return The user-entered input as a {@link String}.
-     */
-    public String readInput() {
-        return scanner.nextLine();
-    }
+
+
 
     /**
-     * Displays a message indicating a task has been marked as done.
+     * Returns a message indicating a task has been marked as done.
      *
      * @param t The {@link Task} that has been marked as done.
+     * @return A string containing the task completion message.
      */
-    public void printForMark(Task t) {
-        System.out.println(INDENT + " Nice! I've marked this task as done:");
-        System.out.println(INDENT + "   " + t.toString());
+    public String printForMark(Task t) {
+        String s = " Nice! I've marked this task as done:/n" + "   " + t.toString();
+        return s;
     }
 
     /**
-     * Displays a message indicating a task has been unmarked (marked as not done).
+     * Returns a message indicating a task has been unmarked (marked as not done).
      *
      * @param t The {@link Task} that has been unmarked.
+     * @return A string containing the task unmarking message.
      */
-    public void printForUnmark(Task t) {
-        System.out.println(INDENT + " OK, I've marked this task as not done yet:");
-        System.out.println(INDENT + "   " + t.toString());
+    public String printForUnmark(Task t) {
+        String s = " OK, I've marked this task as not done yet:/n" + "   " + t.toString();
+        return s;
     }
 
     /**
-     * Displays a message indicating a task has been deleted from the task list.
+     * Returns a message indicating a task has been deleted from the task list.
      * <p>
      * Prints a formatted message showing that the specified task has been removed,
      * along with the updated number of tasks in the list.
@@ -78,15 +54,16 @@ public class Ui {
      *
      * @param t     The {@link Task} that has been deleted.
      * @param list  The {@link TaskList} from which the task was deleted.
+     * @return A string containing the task deletion message and the updated task count.
      */
-    public void printForDelete(Task t, TaskList list) {
-        System.out.println(INDENT + " Noted. I've removed this task:");
-        System.out.println(INDENT + "   " + t.toString());
-        System.out.println(INDENT + " Now you have " + list.size() + " tasks in the list.");
+    public String printForDelete(Task t, TaskList list) {
+        String s = " Noted. I've removed this task:\n" + "   " + t.toString() + "\n"
+                + " Now you have " + list.size() + " tasks in the list.\n";
+        return s;
     }
 
     /**
-     * Displays a message indicating a new task has been added to the task list.
+     * Returns a message indicating a new task has been added to the task list.
      * <p>
      * Prints a formatted message showing that the specified task has been added,
      * along with the updated number of tasks in the list.
@@ -94,36 +71,32 @@ public class Ui {
      *
      * @param t     The {@link Task} that has been added.
      * @param list  The {@link TaskList} to which the task was added.
+     * @return A string containing the task addition message and the updated task count.
      */
-    public void printForAddTask(Task t, TaskList list) {
-        System.out.println(INDENT + " Got it. I've added this task:");
-        System.out.println(INDENT + "   " + t.toString());
-        System.out.println(INDENT + " Now you have " + list.size() + " tasks in the list.");
+    public String printForAddTask(Task t, TaskList list) {
+        String s = " Got it. I've added this task:\n"
+                + "   " + t.toString() + "\n" + " Now you have " + list.size() + " tasks in the list.\n";
+        return s;
     }
 
     /**
-     * Displays an exception message to the user.
+     * Returns an exception message to the user.
      *
      * @param e The {@link Exception} containing the error message to display.
+     * @return A string containing the exception message.
      */
-    public void printException(Exception e) {
-        System.out.println(INDENT + e.getMessage());
+    public String printException(Exception e) {
+        return(e.getMessage());
     }
 
     /**
-     * Displays the entire task list to the user.
+     * Returns the entire task list as a string to the user.
      *
      * @param list The {@link TaskList} containing tasks to display.
+     * @return A string representing the entire task list.
      */
-    public void printTaskList(TaskList list) {
-        System.out.print(list.toString());
+    public String printTaskList(TaskList list) {
+        return(list.toString());
     }
 
-    /**
-     * Prints a formatted line to the console.
-     */
-    public void printLine() {
-        String line = "    ____________________________________________________________\n";
-        System.out.print(line);
-    }
 }
