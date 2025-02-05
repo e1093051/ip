@@ -31,61 +31,58 @@ public class Carolyn {
      * </ul>
      * </p>
      */
-    public void run () {
+    public String getResponse(String s) {
         Parser parser = new Parser();
         Storage storage = new Storage();
         TaskList tasks = storage.load();
-        ui.greeting();
         try{
-            while (ui.hasInput()) {
-                String s = ui.readInput();
-                ui.printLine();
-                Command c = parser.parse(s);
-                String type = c.getType();
-                Object[] content = c.getArgs();
-                if (type.equals("bye")) {
-                    ui.sayGoodBye();
-                    break;
-                } else if (type.equals("list")) {
-                    ui.printTaskList(tasks);
-                } else if (type.equals("mark")) {
-                    Task t = tasks.get((int)content[0]);
-                    t.mark(true);
-                    ui.printForMark(t);
-                } else if (type.equals("unmark")) {
-                    Task t = tasks.get((int)content[0]);
-                    t.mark(false);
-                    ui.printForUnmark(t);
-                } else if (type.equals("delete")) {
-                    Task t = tasks.get((int)content[0]);
-                    tasks.delete((int)content[0]);
-                    ui.printForDelete(t, tasks);
-                } else if (type.equals("find")) {
-                    TaskList found = tasks.find((String)content[0]);
-                    ui.printTaskList(found);
-                } else {
-                    if (type.equals("todo")) {
-                        Task t = new ToDo((String)content[0]);
-                        tasks.add(t);
-                        ui.printForAddTask(t, tasks);
-                    } else if (type.equals("deadline")) {
-                        Task t = new Deadline((String)content[0], (LocalDate) content[1]);
-                        tasks.add(t);
-                        ui.printForAddTask(t, tasks);
-                    } else {
-                        Task t = new Event((String)content[0], (LocalDateTime) content[1], (LocalDateTime) content[2]);
-                        tasks.add(t);
-                        ui.printForAddTask(t, tasks);
-                    }
-                }
+            Command c = parser.parse(s);
+            String type = c.getType();
+            Object[] content = c.getArgs();
+            if (type.equals("bye")) {
+                return ui.sayGoodBye();
+            } else if (type.equals("list")) {
+                return ui.printTaskList(tasks);
+            } else if (type.equals("mark")) {
+                Task t = tasks.get((int)content[0]);
+                t.mark(true);
                 storage.save(tasks);
-                ui.printLine();
+                return ui.printForMark(t);
+            } else if (type.equals("unmark")) {
+                Task t = tasks.get((int)content[0]);
+                t.mark(false);
+                storage.save(tasks);
+                return ui.printForUnmark(t);
+            } else if (type.equals("delete")) {
+                Task t = tasks.get((int)content[0]);
+                tasks.delete((int)content[0]);
+                storage.save(tasks);
+                return ui.printForDelete(t, tasks);
+            } else if (type.equals("find")) {
+                TaskList found = tasks.find((String)content[0]);
+                return ui.printTaskList(found);
+            } else {
+                if (type.equals("todo")) {
+                    Task t = new ToDo((String) content[0]);
+                    tasks.add(t);
+                    storage.save(tasks);
+                    return ui.printForAddTask(t, tasks);
+                } else if (type.equals("deadline")) {
+                    Task t = new Deadline((String) content[0], (LocalDate) content[1]);
+                    tasks.add(t);
+                    storage.save(tasks);
+                    return ui.printForAddTask(t, tasks);
+                } else {
+                    Task t = new Event((String) content[0], (LocalDateTime) content[1], (LocalDateTime) content[2]);
+                    tasks.add(t);
+                    storage.save(tasks);
+                    return ui.printForAddTask(t, tasks);
+                }
             }
         } catch (CarolynException e) {
-            ui.printException(e);
+            return ui.printException(e);
         }
     }
     public static void main(String[] args){
-        new Carolyn().run();
     }
 }
