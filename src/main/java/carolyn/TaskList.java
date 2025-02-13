@@ -53,6 +53,7 @@ public class TaskList implements Serializable {
 
     public TaskList find(String s) {
         TaskList found = new TaskList();
+        assert found.size() == 0 : "at the beginning, the found list should be empty";
         for (int i = 0; i < tasks.size(); i ++) {
             Task t = tasks.get(i);
             if (t.getDescription().contains(s)) {
