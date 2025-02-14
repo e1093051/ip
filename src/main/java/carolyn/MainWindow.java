@@ -50,11 +50,14 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = c.getResponse(input);
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, ccImage)
         );
+
         userInput.clear();
+
         if (input.equals("bye")) {
             stage.close();
         }

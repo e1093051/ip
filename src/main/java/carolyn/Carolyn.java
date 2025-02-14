@@ -62,23 +62,21 @@ public class Carolyn {
             } else if (type.equals("find")) {
                 TaskList found = tasks.find((String)content[0]);
                 return ui.printTaskList(found);
+            } else if (type.equals("todo")) {
+                Task t = new ToDo((String) content[0]);
+                tasks.add(t);
+                storage.save(tasks);
+                return ui.printForAddTask(t, tasks);
+            } else if (type.equals("deadline")) {
+                Task t = new Deadline((String) content[0], (LocalDate) content[1]);
+                tasks.add(t);
+                storage.save(tasks);
+                return ui.printForAddTask(t, tasks);
             } else {
-                if (type.equals("todo")) {
-                    Task t = new ToDo((String) content[0]);
-                    tasks.add(t);
-                    storage.save(tasks);
-                    return ui.printForAddTask(t, tasks);
-                } else if (type.equals("deadline")) {
-                    Task t = new Deadline((String) content[0], (LocalDate) content[1]);
-                    tasks.add(t);
-                    storage.save(tasks);
-                    return ui.printForAddTask(t, tasks);
-                } else {
-                    Task t = new Event((String) content[0], (LocalDateTime) content[1], (LocalDateTime) content[2]);
-                    tasks.add(t);
-                    storage.save(tasks);
-                    return ui.printForAddTask(t, tasks);
-                }
+                Task t = new Event((String) content[0], (LocalDateTime) content[1], (LocalDateTime) content[2]);
+                tasks.add(t);
+                storage.save(tasks);
+                return ui.printForAddTask(t, tasks);
             }
         } catch (CarolynException e) {
             return ui.printException(e);
