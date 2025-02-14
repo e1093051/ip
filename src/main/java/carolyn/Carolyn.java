@@ -39,50 +39,61 @@ public class Carolyn {
         try{
             Command c = parser.parse(s);
             String type = c.getType();
-            Object[] content = c.getArgs();
-            if (type.equals("bye")) {
-                return ui.sayGoodBye();
-            } else if (type.equals("list")) {
-                return ui.printTaskList(tasks);
-            } else if (type.equals("mark")) {
-                Task t = tasks.get((int)content[0]);
-                t.mark(true);
-                storage.save(tasks);
-                return ui.printForMark(t);
-            } else if (type.equals("unmark")) {
-                Task t = tasks.get((int)content[0]);
-                t.mark(false);
-                storage.save(tasks);
-                return ui.printForUnmark(t);
-            } else if (type.equals("delete")) {
-                Task t = tasks.get((int)content[0]);
-                tasks.delete((int)content[0]);
-                storage.save(tasks);
-                return ui.printForDelete(t, tasks);
-            } else if (type.equals("find")) {
-                TaskList found = tasks.find((String)content[0]);
-                return ui.printTaskList(found);
-            } else if (type.equals("tag")) {
-                Task t = tasks.get((int)content[0]);
-                String tagString = (String)content[1];
-                t.tag(tagString);
-                storage.save(tasks);
-                return ui.printForAddTag(t, tagString);
-            } else if (type.equals("todo")) {
-                Task t = new ToDo((String) content[0]);
-                tasks.add(t);
-                storage.save(tasks);
-                return ui.printForAddTask(t, tasks);
-            } else if (type.equals("deadline")) {
-                Task t = new Deadline((String) content[0], (LocalDate) content[1]);
-                tasks.add(t);
-                storage.save(tasks);
-                return ui.printForAddTask(t, tasks);
-            } else {
-                Task t = new Event((String) content[0], (LocalDateTime) content[1], (LocalDateTime) content[2]);
-                tasks.add(t);
-                storage.save(tasks);
-                return ui.printForAddTask(t, tasks);
+            Object[] argsForCommand = c.getArgs();
+            switch (type) {
+                case "bye" -> {
+                    return ui.sayGoodBye();
+                }
+                case "list" -> {
+                    return ui.printTaskList(tasks);
+                }
+                case "mark" -> {
+                    Task t = tasks.get((int) argsForCommand[0]);
+                    t.mark(true);
+                    storage.save(tasks);
+                    return ui.printForMark(t);
+                }
+                case "unmark" -> {
+                    Task t = tasks.get((int) argsForCommand[0]);
+                    t.mark(false);
+                    storage.save(tasks);
+                    return ui.printForUnmark(t);
+                }
+                case "delete" -> {
+                    Task t = tasks.get((int) argsForCommand[0]);
+                    tasks.delete((int) argsForCommand[0]);
+                    storage.save(tasks);
+                    return ui.printForDelete(t, tasks);
+                }
+                case "find" -> {
+                    TaskList found = tasks.find((String) argsForCommand[0]);
+                    return ui.printTaskList(found);
+                }
+                case "tag" -> {
+                    Task t = tasks.get((int) argsForCommand[0]);
+                    String tagString = (String) argsForCommand[1];
+                    t.tag(tagString);
+                    storage.save(tasks);
+                    return ui.printForAddTag(t, tagString);
+                }
+                case "todo" -> {
+                    Task t = new ToDo((String) argsForCommand[0]);
+                    tasks.add(t);
+                    storage.save(tasks);
+                    return ui.printForAddTask(t, tasks);
+                }
+                case "deadline" -> {
+                    Task t = new Deadline((String) argsForCommand[0], (LocalDate) argsForCommand[1]);
+                    tasks.add(t);
+                    storage.save(tasks);
+                    return ui.printForAddTask(t, tasks);
+                }
+                default -> {
+                    Task t = new Event((String) argsForCommand[0], (LocalDateTime) argsForCommand[1], (LocalDateTime) argsForCommand[2]);
+                    tasks.add(t);
+                    storage.save(tasks);
+                    return ui.printForAddTask(t, tasks);
+                }
             }
         } catch (CarolynException e) {
             return ui.printException(e);
