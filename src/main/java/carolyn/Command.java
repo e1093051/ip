@@ -10,6 +10,7 @@ public class Command {
     }
 
     public String getType() {
+        assert this.type.length() > 0 : "For every command, type should be specified";
         return this.type;
     }
 
