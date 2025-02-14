@@ -35,6 +35,7 @@ public class Carolyn {
         Parser parser = new Parser();
         Storage storage = new Storage();
         TaskList tasks = storage.load();
+        assert tasks != null : "a task list should have been loaded, empty or not";
         try{
             Command c = parser.parse(s);
             String type = c.getType();
