@@ -7,8 +7,6 @@ public class Ui {
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
-  
-    String INDENT = "    ";
 
     /**
      * Returns the goodbye message to the user.
@@ -19,9 +17,6 @@ public class Ui {
         String bye = " Bye. Hope to see you again soon!\n";
         return(bye);
     }
-
-
-
 
     /**
      * Returns a message indicating a task has been marked as done.
@@ -53,12 +48,12 @@ public class Ui {
      * </p>
      *
      * @param t     The {@link Task} that has been deleted.
-     * @param list  The {@link TaskList} from which the task was deleted.
+     * @param tasks  The {@link TaskList} from which the task was deleted.
      * @return A string containing the task deletion message and the updated task count.
      */
-    public String printForDelete(Task t, TaskList list) {
+    public String printForDelete(Task t, TaskList tasks) {
         String s = " Noted. I've removed this task:\n" + "   " + t.toString() + "\n"
-                + " Now you have " + list.size() + " tasks in the list.\n";
+                + " Now you have " + tasks.size() + " tasks in the list.\n";
         return s;
     }
 
@@ -70,12 +65,12 @@ public class Ui {
      * </p>
      *
      * @param t     The {@link Task} that has been added.
-     * @param list  The {@link TaskList} to which the task was added.
+     * @param tasks  The {@link TaskList} to which the task was added.
      * @return A string containing the task addition message and the updated task count.
      */
-    public String printForAddTask(Task t, TaskList list) {
+    public String printForAddTask(Task t, TaskList tasks) {
         String s = " Got it. I've added this task:\n"
-                + "   " + t.toString() + "\n" + " Now you have " + list.size() + " tasks in the list.\n";
+                + "   " + t.toString() + "\n" + " Now you have " + tasks.size() + " tasks in the list.\n";
         return s;
     }
 
@@ -92,11 +87,11 @@ public class Ui {
     /**
      * Returns the entire task list as a string to the user.
      *
-     * @param list The {@link TaskList} containing tasks to display.
+     * @param tasks The {@link TaskList} containing tasks to display.
      * @return A string representing the entire task list.
      */
-    public String printTaskList(TaskList list) {
-        return(list.toString());
+    public String printTaskList(TaskList tasks) {
+        return(tasks.toString());
     }
 
 }
