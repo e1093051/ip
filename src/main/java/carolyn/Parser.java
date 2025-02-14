@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 //https://www.geeksforgeeks.org/how-to-convert-string-to-int-in-java/
 
 public class Parser {
+    static final int MAX_NUM_OF_ARGS = 3;
     /**
      * Parses a user input string and converts it into a {@link Command} object.
      *
@@ -16,7 +17,6 @@ public class Parser {
      * @return A {@link Command} object representing the parsed command and its associated arguments.
      * @throws CarolynException If the input command is invalid, incomplete, or does not match any supported command patterns.
      */
-    static final int MAX_NUM_OF_ARGS = 3;
     public Command parse(String s) throws CarolynException {
         Object[] args = new Object[MAX_NUM_OF_ARGS];
         if (s.equals("list")) {
@@ -25,17 +25,17 @@ public class Parser {
             return new Command("bye", args);
         } else if (s.matches("mark \\d")) {
             String[] array = s.split(" ");
-            int index = Integer.valueOf(array[1]);
+            int index = Integer.parseInt(array[1]);
             args[0] = index - 1;
             return new Command("mark", args);
         } else if (s.matches("unmark \\d")) {
             String[] array = s.split(" ");
-            int index = Integer.valueOf(array[1]);
+            int index = Integer.parseInt(array[1]);
             args[0] = index - 1;
             return new Command("unmark", args);
         } else if (s.matches("delete \\d")) {
             String[] array = s.split(" ");
-            int index = Integer.valueOf(array[1]);
+            int index = Integer.parseInt(array[1]);
             args[0] = index - 1;
             return new Command("delete", args);
         } else {
@@ -44,6 +44,13 @@ public class Parser {
                 int firstSpace = s.indexOf(" ");
                 args[0] = s.substring(firstSpace + 1);
                 return new Command("find", args);
+            }
+            else if (command[0].equals("tag")) {
+                int index = Integer.parseInt(command[1]);
+                String tagString = command[2];
+                args[0] = index - 1;
+                args[1] = tagString;
+                return new Command("tag", args);
             }
             else if (command[0].equals("todo")) {
                 int firstSpace = s.indexOf(" ");

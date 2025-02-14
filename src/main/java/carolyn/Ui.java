@@ -74,6 +74,12 @@ public class Ui {
         return s;
     }
 
+    public String printForAddTag(Task t, String tagString) {
+        String s = " Got it. I've added this tag " + tagString
+                + "to the task" + t.toString();
+        return s;
+    }
+
     /**
      * Returns an exception message to the user.
      *

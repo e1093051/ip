@@ -62,6 +62,12 @@ public class Carolyn {
             } else if (type.equals("find")) {
                 TaskList found = tasks.find((String)content[0]);
                 return ui.printTaskList(found);
+            } else if (type.equals("tag")) {
+                Task t = tasks.get((int)content[0]);
+                String tagString = (String)content[1];
+                t.tag(tagString);
+                storage.save(tasks);
+                return ui.printForAddTag(t, tagString);
             } else if (type.equals("todo")) {
                 Task t = new ToDo((String) content[0]);
                 tasks.add(t);
