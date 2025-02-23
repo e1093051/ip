@@ -25,7 +25,7 @@ public class Ui {
      * @return A string containing the task completion message.
      */
     public String printForMark(Task t) {
-        String s = " Nice! I've marked this task as done:/n" + "   " + t.toString();
+        String s = " Nice! I've marked this task as done:\n" + "   " + t.toString();
         return s;
     }
 
@@ -36,7 +36,7 @@ public class Ui {
      * @return A string containing the task unmarking message.
      */
     public String printForUnmark(Task t) {
-        String s = " OK, I've marked this task as not done yet:/n" + "   " + t.toString();
+        String s = " OK, I've marked this task as not done yet:\n" + "   " + t.toString();
         return s;
     }
 
@@ -75,8 +75,8 @@ public class Ui {
     }
 
     public String printForAddTag(Task t, String tagString) {
-        String s = " Got it. I've added this tag " + tagString
-                + "to the task" + t.toString();
+        String s = " Got it. I've added this tag \"" + tagString
+                + "\" to the task:\n" + t.toString();
         return s;
     }
 
