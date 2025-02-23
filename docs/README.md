@@ -4,7 +4,7 @@
 
 
 This chatbot can add 3 different types of tasks: todo, event and deadline, and for each task, we can mark and unmark, delete and tag it.
-In addition, we can list all the tasks in the list and find a task using keyword in description.
+In addition, we can list all the tasks in the list and find a task using keyword in the description.
 
 ## Adding deadlines
 
@@ -14,7 +14,7 @@ The command should be of the form: todo {task_content}
 
 For Example: `todo sayHi`
 
-Suppose the list initally has no task, then you will get output from the bot:
+Suppose the list initially has no task, then you will get output from the bot:
 
 ```
 Got it. I've added this task:
@@ -30,7 +30,7 @@ The command should be of the form: deadline {task_content} /by {yyyy-mm-dd}
 
 For Example: `deadline eatCake /by 2025-3-3`
 
-Suppose the list initally has only 1 task, then you will get output from the bot:
+Suppose the list initially has only 1 task, then you will get output from the bot:
 
 ```
 Got it. I've added this task:
@@ -46,7 +46,7 @@ The command should be of the form: event {task_content} /from YYYY-MM-DD HH:MM /
 
 For Example: `event meeting /from 2025-11-10 13:10 /to 2025-11-10 14:10`
 
-Suppose the list initally has 2 tasks, then you will get output from the bot:
+Suppose the list initially has 2 tasks, then you will get output from the bot:
 
 ```
 Got it. I've added this task:
@@ -58,7 +58,7 @@ Now you have 3 tasks in the list.
 
 Mark a task as done or not done.
 
-The command should be of the form : mark/unmark {task_index}
+The command should be of the form: mark/unmark {task_index}
 
 For Example: `mark 1`
 
@@ -72,7 +72,7 @@ Nice! I've marked this task as done:
 For Example: `unmark 1`
 
 ```
-Ok! I've markd this task as not done yet:
+Ok! I've marked this task as not done yet:
 [T][] sayHi
 ```
 
@@ -80,7 +80,7 @@ Ok! I've markd this task as not done yet:
 
 Add a tag to a task
 
-The command should be of the form : tag {task_index} {tag_string}
+The command should be of the form: tag {task_index} {tag_string}
 
 For Example: `tag 1 #important`
 
@@ -95,7 +95,7 @@ Got it. I've added this tag "love" to the task:
 
 Mark a task as done or not done.
 
-The command should be of the form : delete {task_index}
+The command should be of the form: delete {task_index}
 
 For Example: `delete 1`
 
@@ -124,10 +124,10 @@ then you will get output from the bot:
 
 ## Find a task
 
-Find a tag using keywork in description.
+Find a tag using keyword in the description.
 
 The command should be of this form: find {keyword}
-The keyword is case sensitive.
+The keyword is case-sensitive.
 
 For example: `find meeting`
 
