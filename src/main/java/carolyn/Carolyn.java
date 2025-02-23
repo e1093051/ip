@@ -35,70 +35,54 @@ public class Carolyn {
         Parser parser = new Parser();
         Storage storage = new Storage();
         TaskList tasks = storage.load();
-        assert tasks != null : "a task list should have been loaded, empty or not";
-        try{
+        assert tasks != null : "A task list should have been loaded, empty or not";
+
+        try {
             Command c = parser.parse(s);
-            String type = c.getType();
-            Object[] argsForCommand = c.getArgs();
-            switch (type) {
-                case "bye" -> {
-                    return ui.sayGoodBye();
-                }
-                case "list" -> {
-                    return ui.printTaskList(tasks);
-                }
-                case "mark" -> {
-                    Task t = tasks.get((int) argsForCommand[0]);
-                    t.mark(true);
-                    storage.save(tasks);
-                    return ui.printForMark(t);
-                }
-                case "unmark" -> {
-                    Task t = tasks.get((int) argsForCommand[0]);
-                    t.mark(false);
-                    storage.save(tasks);
-                    return ui.printForUnmark(t);
-                }
-                case "delete" -> {
-                    Task t = tasks.get((int) argsForCommand[0]);
-                    tasks.delete((int) argsForCommand[0]);
-                    storage.save(tasks);
-                    return ui.printForDelete(t, tasks);
-                }
-                case "find" -> {
-                    TaskList found = tasks.find((String) argsForCommand[0]);
-                    return ui.printTaskList(found);
-                }
-                case "tag" -> {
-                    Task t = tasks.get((int) argsForCommand[0]);
-                    String tagString = (String) argsForCommand[1];
-                    t.tag(tagString);
-                    storage.save(tasks);
-                    return ui.printForAddTag(t, tagString);
-                }
-                case "todo" -> {
-                    Task t = new ToDo((String) argsForCommand[0]);
-                    tasks.add(t);
-                    storage.save(tasks);
-                    return ui.printForAddTask(t, tasks);
-                }
-                case "deadline" -> {
-                    Task t = new Deadline((String) argsForCommand[0], (LocalDate) argsForCommand[1]);
-                    tasks.add(t);
-                    storage.save(tasks);
-                    return ui.printForAddTask(t, tasks);
-                }
-                default -> {
-                    Task t = new Event((String) argsForCommand[0], (LocalDateTime) argsForCommand[1], (LocalDateTime) argsForCommand[2]);
-                    tasks.add(t);
-                    storage.save(tasks);
-                    return ui.printForAddTask(t, tasks);
-                }
-            }
+            return executeCommand(c, tasks, storage);
         } catch (CarolynException e) {
             return ui.printException(e);
         }
     }
-    public static void main(String[] args){
+
+    private String executeCommand(Command c, TaskList tasks, Storage storage) throws CarolynException {
+        String type = c.getType();
+        Object[] args = c.getArgs();
+
+        return switch (type) {
+            case "bye" -> ui.sayGoodBye();
+            case "list" -> ui.printTaskList(tasks);
+            case "mark", "unmark" -> {
+                Task t = tasks.get((int) args[0]);
+                t.mark(type.equals("mark"));
+                storage.save(tasks);
+                yield type.equals("mark") ? ui.printForMark(t) : ui.printForUnmark(t);
+            }
+            case "delete" -> {
+                Task t = tasks.get((int) args[0]);
+                tasks.delete((int) args[0]);
+                storage.save(tasks);
+                yield ui.printForDelete(t, tasks);
+            }
+            case "find" -> ui.printTaskList(tasks.find((String) args[0]));
+            case "tag" -> {
+                Task t = tasks.get((int) args[0]);
+                String tag = (String) args[1];
+                t.tag(tag);
+                storage.save(tasks);
+                yield ui.printForAddTag(t, tag);
+            }
+            case "todo" -> addTask(new ToDo((String) args[0]), tasks, storage);
+            case "deadline" -> addTask(new Deadline((String) args[0], (LocalDate) args[1]), tasks, storage);
+            case "event" ->
+                    addTask(new Event((String) args[0], (LocalDateTime) args[1], (LocalDateTime) args[2]), tasks, storage);
+            default -> throw new CarolynException("Unknown command: " + type);
+        };
+    }
+
+    private String addTask(Task t, TaskList tasks, Storage storage) {
+        tasks.add(t);
+        storage.save(tasks);
+        return ui.printForAddTask(t, tasks);
     }
 }
