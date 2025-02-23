@@ -53,24 +53,37 @@ public class Carolyn {
             case "bye" -> ui.sayGoodBye();
             case "list" -> ui.printTaskList(tasks);
             case "mark", "unmark" -> {
-                Task t = tasks.get((int) args[0]);
-                t.mark(type.equals("mark"));
-                storage.save(tasks);
-                yield type.equals("mark") ? ui.printForMark(t) : ui.printForUnmark(t);
+                try {
+                    Task t = tasks.get((int) args[0]);
+                    t.mark(type.equals("mark"));
+                    storage.save(tasks);
+                    yield type.equals("mark") ? ui.printForMark(t) : ui.printForUnmark(t);
+                } catch (CarolynException e) {
+                    throw e;
+                }
             }
             case "delete" -> {
-                Task t = tasks.get((int) args[0]);
-                tasks.delete((int) args[0]);
-                storage.save(tasks);
-                yield ui.printForDelete(t, tasks);
+                try {
+                    int index = (int) args[0];
+                    Task t = tasks.get((int) args[0]);
+                    tasks.delete((int) args[0]);
+                    storage.save(tasks);
+                    yield ui.printForDelete(t, tasks);
+                } catch (CarolynException e) {
+                    throw e;
+                }
             }
             case "find" -> ui.printTaskList(tasks.find((String) args[0]));
             case "tag" -> {
-                Task t = tasks.get((int) args[0]);
-                String tag = (String) args[1];
-                t.tag(tag);
-                storage.save(tasks);
-                yield ui.printForAddTag(t, tag);
+                try {
+                    Task t = tasks.get((int) args[0]);
+                    String tag = (String) args[1];
+                    t.tag(tag);
+                    storage.save(tasks);
+                    yield ui.printForAddTag(t, tag);
+                } catch (CarolynException e) {
+                    throw e;
+                }
             }
             case "todo" -> addTask(new ToDo((String) args[0]), tasks, storage);
             case "deadline" -> addTask(new Deadline((String) args[0], (LocalDate) args[1]), tasks, storage);

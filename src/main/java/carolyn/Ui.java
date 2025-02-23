@@ -2,6 +2,9 @@ package carolyn;
 
 import java.util.Scanner;
 
+/**
+ * Handles user interactions by providing formatted messages for various actions.
+ */
 public class Ui {
     private Scanner scanner;
     public Ui() {

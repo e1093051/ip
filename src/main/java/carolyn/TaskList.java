@@ -39,7 +39,10 @@ public class TaskList implements Serializable {
      * @param i The zero-based index of the {@link Task} to retrieve.
      * @return The {@link Task} at the specified index.
      */
-    public Task get(int i) {
+    public Task get(int i) throws CarolynException {
+        if (i >= tasks.size() || i < 0) {
+            throw new CarolynException("Invalid index");
+        }
         return tasks.get(i);
     }
 

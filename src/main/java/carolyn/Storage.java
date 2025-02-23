@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-
+/**
+ * Handles file storage operations, ensuring that the necessary directory and file exist.
+ */
 public class Storage {
     String PATH = "data" + File.separator + "cc.txt";
     public Storage() {
