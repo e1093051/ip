@@ -38,6 +38,7 @@ public class MainWindow extends AnchorPane {
     public void setCarolyn(Carolyn c, Stage stage) {
         this.c = c;
         this.stage = stage;
+        this.stage.setTitle("Carolyn Chatbot");
         dialogContainer.getChildren().addAll(DialogBox.getDukeDialog("Hello!", ccImage));
     }
 
