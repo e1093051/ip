@@ -27,8 +27,9 @@ Now you have 1 tasks in the list.
 Add a task that has deadline.
 
 The command should be of the form: deadline {task_content} /by {yyyy-mm-dd}
+The month and day must be of two digits.
 
-For Example: `deadline eatCake /by 2025-3-3`
+For Example: `deadline eatCake /by 2025-03-03`
 
 Suppose the list initially has only 1 task, then you will get output from the bot:
 
