@@ -1,6 +1,7 @@
 # Carolyn User Guide
 
-<img width="399" alt="image" src="https://github.com/user-attachments/assets/e384c6d8-0ab1-438a-ba51-566b0e3641cf" />
+<img width="399" alt="Ui" src="https://github.com/user-attachments/assets/fa5405fa-057b-4feb-bd2f-97dfa599a9ab" />
+
 
 
 This chatbot can add 3 different types of tasks: todo, event and deadline, and for each task, we can mark and unmark, delete and tag it.
