@@ -84,7 +84,7 @@ Add a tag to a task
 
 The command should be of the form: tag {task_index} {tag_string}
 
-For Example: `tag 1 #important`
+For Example: `tag 1 love`
 
 Suppose the first task is sayHi and of type todo, then you will get output from the bot:
 
